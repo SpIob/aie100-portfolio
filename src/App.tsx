@@ -298,13 +298,14 @@ export default function App() {
   );
 
   useEffect(() => {
-    if (phase !== "intro") return;
-    const toZoom = setTimeout(() => setPhase("zoom"), 3000);
-    const toContent = setTimeout(() => setPhase("content"), 4050);
-    return () => {
-      clearTimeout(toZoom);
-      clearTimeout(toContent);
-    };
+    if (phase === "intro") {
+      const t = setTimeout(() => setPhase("zoom"), 3000);
+      return () => clearTimeout(t);
+    }
+    if (phase === "zoom") {
+      const t = setTimeout(() => setPhase("content"), 1050);
+      return () => clearTimeout(t);
+    }
   }, [phase]);
 
   return (
