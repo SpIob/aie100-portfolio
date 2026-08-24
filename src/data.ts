@@ -1,60 +1,33 @@
-// ---------------------------------------------------------------------------
-// Content lives here, separate from the components that render it.
-// Anything left as an empty string ("") renders as a dashed placeholder
-// slot in the UI. Fill a field in and its placeholder styling drops away
-// automatically — no other file needs to change.
-// ---------------------------------------------------------------------------
+// Content lives here, separate from layout in App.tsx.
+// Anything left as "" renders as a dashed placeholder slot. Fill it in
+// and the placeholder styling drops away automatically.
 
-export interface Profile {
-  name: string;
-  program: string;
-  yearLevel: string;
-  section: string;
-  term: string;
-  homeIntro: string; // short line under your name on the Home section
-}
-
-export const PROFILE: Profile = {
+export const PROFILE = {
   name: "Mico Arenga",
   program: "BS AI Engineering",
   yearLevel: "1st Year — Freshman",
   section: "Sec A41",
   term: "SY 2026–2027",
-  homeIntro: "",
+  homeIntro: "", // short line under your name on the Home section
 };
 
 export const ABOUT_ME = ""; // background + why AI Engineering — write this yourself, in your own voice
 
-export type RouteStatus = "not-started" | "in-progress" | "complete";
+export type LegStatus = "not-started" | "in-progress" | "complete";
 
-export interface Waypoint {
-  code: string;
-  title: string;
-  status: RouteStatus;
-  entry: string;
-}
-
-export const WAYPOINTS: Waypoint[] = [
-  { code: "AIE100", title: "", status: "not-started", entry: "" },
-  { code: "CM011", title: "", status: "not-started", entry: "" },
-  { code: "CM011L", title: "", status: "not-started", entry: "" },
-  { code: "FW01-2", title: "", status: "not-started", entry: "" },
-  { code: "GED105", title: "", status: "not-started", entry: "" },
-  { code: "MATH165", title: "", status: "not-started", entry: "" },
-  { code: "MATH166", title: "", status: "not-started", entry: "" },
-  { code: "NSTP100", title: "", status: "not-started", entry: "" },
+export const WAYPOINTS: { code: string; status: LegStatus; entry: string }[] = [
+  { code: "AIE100", status: "not-started", entry: "" },
+  { code: "CM011", status: "not-started", entry: "" },
+  { code: "CM011L", status: "not-started", entry: "" },
+  { code: "FW01-2", status: "not-started", entry: "" },
+  { code: "GED105", status: "not-started", entry: "" },
+  { code: "MATH165", status: "not-started", entry: "" },
+  { code: "MATH166", status: "not-started", entry: "" },
+  { code: "NSTP100", status: "not-started", entry: "" },
 ];
 
-export interface PortfolioItem {
-  title: string;
-  description: string;
-  tag: string;
-  link: string;
-}
-
-// Starter entries pulled from projects you've already got going — swap,
-// edit, reorder, or delete freely. Add new ones the same shape.
-export const PORTFOLIO_ITEMS: PortfolioItem[] = [
+// Swap, edit, reorder, or delete freely. Add new ones in the same shape.
+export const PORTFOLIO_ITEMS = [
   {
     title: "Bagong Enerhiya",
     description: "Open-source AI literature intelligence tool.",
@@ -75,25 +48,13 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
 ];
 
-export interface JournalEntry {
-  title: string;
-  date: string;
-  body: string;
-}
-
-export const REFLECTIONS: JournalEntry[] = [
-  { title: "", date: "", body: "" },
-  { title: "", date: "", body: "" },
-  { title: "", date: "", body: "" },
+export const REFLECTIONS = [
+  { title: "", body: "" },
+  { title: "", body: "" },
+  { title: "", body: "" },
 ];
 
-export interface ContactInfo {
-  email: string;
-  linkedin: string;
-  github: string;
-}
-
-export const CONTACT: ContactInfo = {
+export const CONTACT = {
   email: "",
   linkedin: "",
   github: "https://github.com/SpIob",
