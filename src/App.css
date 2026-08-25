@@ -246,9 +246,11 @@ body {
 }
 
 .mfl main { max-width: 1040px; margin: 0 auto; padding: 0 24px 80px; }
-html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 
-.mfl header.masthead { padding: 56px 0 48px; border-bottom: 1px solid var(--grid-line); scroll-margin-top: 64px; }
+.mfl header.masthead { padding: 56px 0 48px; border-bottom: 1px solid var(--grid-line); scroll-margin-top: var(--scroll-margin, 64px); }
 .mfl .kicker {
   font-family: "IBM Plex Mono", monospace;
   font-size: 11px;
@@ -268,6 +270,7 @@ html { scroll-behavior: smooth; }
   margin: 0 0 14px;
   color: var(--ink);
 }
+.mfl h1.title:focus { outline: none; }
 .mfl .subtitle {
   font-family: "Fraunces", serif;
   font-style: italic;
@@ -286,7 +289,7 @@ html { scroll-behavior: smooth; }
   padding-left: 10px;
 }
 
-.mfl section { padding: 56px 0; border-bottom: 1px solid var(--grid-line); scroll-margin-top: 64px; }
+.mfl section { padding: 56px 0; border-bottom: 1px solid var(--grid-line); scroll-margin-top: var(--scroll-margin, 64px); }
 .mfl section:last-of-type { border-bottom: none; }
 .mfl .section-head {
   display: flex;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import {
   ABOUT_ME,
@@ -22,7 +22,16 @@ function Slot({ value, fallback, block = false }: { value: string; fallback: str
       <span className="is-placeholder-inline">{fallback}</span>
     );
   }
-  return block ? <p className="filled-block">{value}</p> : <>{value}</>;
+  return block
+    ? value
+        .trim()
+        .split(/\n\s*\n/)
+        .map((p, i) => (
+          <p key={i} className="filled-block">
+            {p}
+          </p>
+        ))
+    : <>{value}</>;
 }
 
 const Icon = ({ d }: { d: string }) => (
@@ -45,8 +54,21 @@ const NAV_LINKS = [
 ] as const;
 
 function Nav() {
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() =>
+      document.documentElement.style.setProperty(
+        "--scroll-margin",
+        `${el.offsetHeight + 16}px`,
+      ),
+    );
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   return (
-    <nav className="site-nav" aria-label="Section navigation">
+    <nav ref={ref} className="site-nav" aria-label="Section navigation">
       <a className="nav-brand" href="#home">
         <Icon d={COMPASS} />
         Field Log
@@ -69,7 +91,7 @@ function Home() {
         <Icon d={COMPASS} />
         Field Log · {PROFILE.term} · {PROFILE.section}
       </div>
-      <h1 className="title">{PROFILE.name}</h1>
+      <h1 className="title" tabIndex={-1}>{PROFILE.name}</h1>
       <p className="subtitle">
         {PROFILE.program} · {PROFILE.yearLevel}
       </p>
@@ -243,7 +265,7 @@ function Footer() {
 
 function Intro({ onSkip }: { onSkip: () => void }) {
   return (
-    <div className="intro-layer grid-bg" aria-hidden="true">
+    <div className="intro-layer grid-bg">
       <div className="intro-top">
         <span>Plotting route — Quarter One</span>
         <button className="skip-btn" onClick={onSkip}>
@@ -251,7 +273,7 @@ function Intro({ onSkip }: { onSkip: () => void }) {
         </button>
       </div>
 
-      <div className="map-stage">
+      <div className="map-stage" aria-hidden="true">
         <div className="map-frame">
           <svg
             className="map-svg"
@@ -278,7 +300,7 @@ function Intro({ onSkip }: { onSkip: () => void }) {
         </div>
       </div>
 
-      <div className="boot-log">
+      <div className="boot-log" aria-hidden="true">
         {BOOT_LINES.map((line) => (
           <span key={line}>{line}</span>
         ))}
@@ -296,9 +318,11 @@ export default function App() {
   const [phase, setPhase] = useState<Phase>(() =>
     matchMedia("(prefers-reduced-motion: reduce)").matches ? "content" : "intro"
   );
+  const showedIntro = useRef(false);
 
   useEffect(() => {
     if (phase === "intro") {
+      showedIntro.current = true;
       const t = setTimeout(() => setPhase("zoom"), 3000);
       return () => clearTimeout(t);
     }
@@ -306,13 +330,17 @@ export default function App() {
       const t = setTimeout(() => setPhase("content"), 1050);
       return () => clearTimeout(t);
     }
+    if (showedIntro.current) {
+      showedIntro.current = false;
+      document.querySelector<HTMLElement>(".title")?.focus();
+    }
   }, [phase]);
 
   return (
     <div className={`mfl phase-${phase}`}>
       {phase !== "content" && <Intro onSkip={() => setPhase("content")} />}
 
-      <div className="content-layer grid-bg">
+      <div className="content-layer grid-bg" inert={phase !== "content"}>
         <Nav />
         <main>
           <Home />

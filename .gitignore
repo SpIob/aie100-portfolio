@@ -3,3 +3,4 @@ DESIGN.md
 node_modules/
 dist/
 .opencode/
+.DS_Store
