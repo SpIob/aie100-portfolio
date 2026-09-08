@@ -1,9 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "./components/ThemeContext";
+import App from "./App.tsx";
 
-createRoot(document.getElementById('root')!).render(
+const BASENAME = "/aie100-portfolio";
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <BrowserRouter basename={BASENAME}>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
   </StrictMode>,
-)
+);

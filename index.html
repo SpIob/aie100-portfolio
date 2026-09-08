@@ -4,8 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="description" content="Mico Arenga's Quarter One AIE100 portfolio — a field log of the Mapúa journey." />
     <title>Field Log — Mico's Mapúa Journey</title>
+    <script>
+      (function () {
+        var stored = null;
+        try { stored = localStorage.getItem("fieldlog-theme"); } catch (e) {}
+        var theme =
+          stored === "dark" || stored === "light"
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
