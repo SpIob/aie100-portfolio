@@ -1,0 +1,30 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E4DFCB"/>
+      <stop offset="100%" stop-color="#DAD4BC"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1B2A2A" stroke-width="0.5" opacity="0.1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <g fill="none" stroke="#2F6F62" stroke-width="2">
+    <path d="M 150 400 Q 300 250 450 350 T 750 300 T 1050 400" stroke-dasharray="12 6"/>
+    <circle cx="150" cy="400" r="8" fill="#1B2A2A"/>
+    <circle cx="450" cy="350" r="6" fill="#B4842A"/>
+    <circle cx="750" cy="300" r="6" fill="#B4842A"/>
+    <g transform="translate(1050 400)">
+      <circle r="12" fill="none" stroke="#A6432F" stroke-width="3"/>
+      <circle r="8" fill="#A6432F"/>
+      <circle r="4" fill="#E4DFCB"/>
+    </g>
+  </g>
+  <text x="120" y="440" font-family="IBM Plex Mono, monospace" font-size="14" fill="#66756F" text-transform="uppercase" letter-spacing="0.1em">Valenzuela City</text>
+  <text x="920" y="280" font-family="IBM Plex Mono, monospace" font-size="14" fill="#1B2A2A" font-weight="500" text-transform="uppercase" letter-spacing="0.1em" text-anchor="end">Mapúa — Intramuros</text>
+  <g font-family="Fraunces, serif" fill="#1B2A2A">
+    <text x="600" y="120" font-size="48" font-weight="600" text-anchor="middle" opacity="0.15">FROSH CAMPUS</text>
+    <text x="600" y="180" font-size="24" font-weight="400" text-anchor="middle" fill="#4B5C5C" opacity="0">Placeholder</text>
+  </g>
+</svg>

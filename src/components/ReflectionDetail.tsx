@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import { REFLECTIONS } from "../data";
 import { COMPASS, MOON, SUN_RAYS, Icon } from "../App";
 import { useTheme } from "./ThemeContext";
+import { OptimizedImage } from "./OptimizedImage";
 
 function Nav({ theme, onToggleTheme }: { theme: ReturnType<typeof useTheme>["theme"]; onToggleTheme: ReturnType<typeof useTheme>["toggleTheme"] }) {
   const NAV_LINKS = [
@@ -17,14 +18,14 @@ function Nav({ theme, onToggleTheme }: { theme: ReturnType<typeof useTheme>["the
 
   return (
     <nav className="site-nav" aria-label="Section navigation">
-      <a className="nav-brand" href="/#home">
+      <Link className="nav-brand" to="/#home">
         <Icon d={COMPASS} />
         Field Log
-      </a>
+      </Link>
       <ul className="nav-links">
         {NAV_LINKS.map(([href, label]) => (
           <li key={href}>
-            <a href={href}>{label}</a>
+            <Link to={href}>{label}</Link>
           </li>
         ))}
       </ul>
@@ -114,7 +115,13 @@ export default function ReflectionDetail() {
 
             {reflection.coverImage && (
               <div className="reflection-hero">
-                <img src={reflection.coverImage} alt="" aria-hidden="true" />
+                <OptimizedImage
+                  src={reflection.coverImage}
+                  alt=""
+                  aria-hidden="true"
+                  priority={true}
+                  sizes="(max-width: 768px) 100vw, 800px"
+                />
               </div>
             )}
 

@@ -1,0 +1,34 @@
+{
+  "resourceSizes": [
+    {
+      "resourceType": "total",
+      "budget": 500
+    },
+    {
+      "resourceType": "script",
+      "budget": 150
+    },
+    {
+      "resourceType": "css",
+      "budget": 20
+    },
+    {
+      "resourceType": "font",
+      "budget": 50
+    },
+    {
+      "resourceType": "image",
+      "budget": 100
+    },
+    {
+      "resourceType": "third-party",
+      "budget": 100
+    }
+  ],
+  "resourceCounts": [
+    {
+      "resourceType": "third-party",
+      "budget": 10
+    }
+  ]
+}

@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useEffect, useRef, useState, Suspense, lazy } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
-import DinoGame from "./components/DinoGame";
-import ReflectionDetail from "./components/ReflectionDetail";
 import Reflections from "./components/Reflections";
 import { useTheme } from "./components/ThemeContext";
+
+const DinoGame = lazy(() => import("./components/DinoGame"));
+const ReflectionDetail = lazy(() => import("./components/ReflectionDetail"));
 import {
   ABOUT_ME,
   BOOT_LINES,
@@ -20,7 +21,7 @@ export function Slot({ value, fallback, block = false }: { value: string; fallba
     return block ? (
       <div className="placeholder-box">
         {fallback}
-        <span className="placeholder-tag">TBD</span>
+        <span className="placeholder-tag">2026</span>
       </div>
     ) : (
       <span className="is-placeholder-inline">{fallback}</span>
@@ -190,7 +191,7 @@ function Home() {
       <p className="home-intro">
         <Slot value={PROFILE.homeIntro} fallback="[ A one-line personal intro goes here — add it in data.ts. ]" />
       </p>
-      <div className="status-line">STATUS — pre-departure · first entry not yet logged</div>
+      <div className="status-line">STATUS — HOT TO GO!</div>
     </header>
   );
 }
@@ -334,6 +335,24 @@ function Footer() {
   );
 }
 
+function MainPage() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <>
+      <Nav theme={theme} onToggleTheme={toggleTheme} />
+      <main>
+        <Home />
+        <AboutMe />
+        <RouteSection />
+        <Portfolio />
+        <Reflections />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
 function Intro({ onSkip }: { onSkip: () => void }) {
   return (
     <div className="intro-layer grid-bg">
@@ -401,11 +420,9 @@ const KONAMI_SEQUENCE = [
 export default function App() {
   const [phase, setPhase] = useState<Phase>(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return "content";
-    if (typeof window !== "undefined" && window.location.pathname !== "/") return "content";
     return "intro";
   });
   const showedIntro = useRef(false);
-  const { theme, toggleTheme } = useTheme();
   const [showGame, setShowGame] = useState(false);
   const [highScore, setHighScore] = useState(() => {
     try {
@@ -414,7 +431,11 @@ export default function App() {
       return 0;
     }
   });
+  const closeGameRef = useRef(() => setShowGame(false));
+  closeGameRef.current = () => setShowGame(false);
   const konamiIndex = useRef(0);
+  const konamiHandlerRef = useRef<(e: KeyboardEvent) => void>(() => {});
+  const location = useLocation();
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -430,6 +451,7 @@ export default function App() {
         konamiIndex.current = e.code === KONAMI_SEQUENCE[0] ? 1 : 0;
       }
     };
+    konamiHandlerRef.current = handler;
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [showGame]);
@@ -452,7 +474,6 @@ export default function App() {
 
   useEffect(() => {
     if (phase !== "content") return;
-    const els = Array.from(document.querySelectorAll<HTMLElement>(".mfl .reveal"));
     const obs = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -464,24 +485,63 @@ export default function App() {
       },
       { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
     );
-    els.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, [phase]);
+    const observeReveals = () => {
+      document.querySelectorAll<HTMLElement>(".mfl .reveal:not(.is-in)").forEach((el) => obs.observe(el));
+    };
+    observeReveals();
 
-  function MainPage() {
+    // Lazy/Suspense content (e.g. ReflectionDetail) mounts after this effect
+    // runs on route change; watch the DOM so late-mounted .reveal elements
+    // are observed too.
+    const layer = document.querySelector(".mfl .content-layer");
+    const mo = new MutationObserver(observeReveals);
+    if (layer) mo.observe(layer, { childList: true, subtree: true });
+
+    const onHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        const target = document.getElementById(hash);
+        if (target) {
+          target.classList.add("is-in");
+          const revealEls = target.querySelectorAll<HTMLElement>(".reveal");
+          revealEls.forEach((el) => el.classList.add("is-in"));
+        }
+      }
+    };
+    window.addEventListener("hashchange", onHashChange);
+
+    return () => {
+      obs.disconnect();
+      mo.disconnect();
+      window.removeEventListener("hashchange", onHashChange);
+    };
+  }, [phase, location.pathname]);
+
+function GameFallback() {
   return (
-    <>
-      <Nav theme={theme} onToggleTheme={toggleTheme} />
-      <main>
-        <Home />
-        <AboutMe />
-        <RouteSection />
-        <Portfolio />
-        <Reflections />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <div className="dino-modal" role="dialog" aria-modal="true" aria-labelledby="dino-title">
+      <div className="dino-backdrop" />
+      <div className="dino-container">
+        <header className="dino-header">
+          <h2 id="dino-title" className="dino-title">Dino Run</h2>
+        </header>
+        <div className="dino-canvas-wrapper" style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "180px" }}>
+          <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: "var(--ink-faint)" }}>Loading game…</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ReflectionFallback() {
+  return (
+    <div className="mfl phase-content">
+      <div className="content-layer grid-bg">
+        <main style={{ padding: "80px 24px", textAlign: "center" }}>
+          <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: "var(--ink-faint)" }}>Loading reflection…</span>
+        </main>
+      </div>
+    </div>
   );
 }
 
@@ -492,16 +552,25 @@ return (
     <div className="content-layer grid-bg" inert={phase !== "content"}>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/reflections/:slug" element={<ReflectionDetail />} />
+        <Route
+          path="/reflections/:slug"
+          element={
+            <Suspense fallback={<ReflectionFallback />}>
+              <ReflectionDetail />
+            </Suspense>
+          }
+        />
       </Routes>
     </div>
 
     {showGame && (
-      <DinoGame
-        onClose={() => setShowGame(false)}
-        highScore={highScore}
-        onHighScore={setHighScore}
-      />
+      <Suspense fallback={<GameFallback />}>
+        <DinoGame
+          onClose={closeGameRef.current}
+          highScore={highScore}
+          onHighScore={setHighScore}
+        />
+      </Suspense>
     )}
   </div>
 );

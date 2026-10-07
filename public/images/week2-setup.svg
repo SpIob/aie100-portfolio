@@ -1,0 +1,37 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E4DFCB"/>
+      <stop offset="100%" stop-color="#DAD4BC"/>
+    </linearGradient>
+    <pattern id="crosshatch" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 0 30 L 30 0 M -5 5 L 5 -5 M 25 35 L 35 25" fill="none" stroke="#1B2A2A" stroke-width="0.4" opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#crosshatch)"/>
+  <g fill="#2F6F62" opacity="0.1">
+    <rect x="150" y="180" width="200" height="120" rx="4"/>
+    <rect x="450" y="180" width="280" height="120" rx="4"/>
+    <rect x="850" y="180" width="200" height="120" rx="4"/>
+    <rect x="150" y="380" width="400" height="200" rx="4"/>
+    <rect x="650" y="380" width="400" height="200" rx="4"/>
+  </g>
+  <g stroke="#2F6F62" stroke-width="2" fill="none" opacity="0.3">
+    <line x1="250" y1="300" x2="590" y2="300"/>
+    <line x1="590" y1="300" x2="590" y2="380"/>
+    <line x1="590" y1="380" x2="850" y2="380"/>
+  </g>
+  <g fill="#B4842A">
+    <rect x="230" y="220" width="40" height="30" rx="2"/>
+    <rect x="290" y="220" width="40" height="30" rx="2"/>
+    <circle cx="590" cy="240" r="12"/>
+    <rect x="670" y="420" width="60" height="40" rx="2"/>
+    <rect x="750" y="420" width="60" height="40" rx="2"/>
+  </g>
+  <g stroke="#A6432F" stroke-width="2" fill="none">
+    <path d="M 350 400 L 370 440"/>
+    <path d="M 850 420 L 830 460"/>
+  </g>
+  <text x="600" y="600" font-family="Fraunces, serif" font-size="42" font-weight="600" fill="#1B2A2A" text-anchor="middle" opacity="0.12">WEEK 2 SETUP</text>
+</svg>
