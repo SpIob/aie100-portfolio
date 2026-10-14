@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -81,6 +82,14 @@ export default function ReflectionDetail() {
 
   const reflection = REFLECTIONS.find((r) => r.slug === slug);
 
+  useEffect(() => {
+    const prevTitle = document.title;
+    if (reflection) document.title = `${reflection.title} · Field Log`;
+    return () => {
+      document.title = prevTitle;
+    };
+  }, [reflection]);
+
   if (!reflection) {
     return (
       <div className="mfl phase-content">
@@ -100,8 +109,6 @@ export default function ReflectionDetail() {
       </div>
     );
   }
-
-  document.title = `${reflection.title} · Field Log`;
 
   return (
     <div className={`mfl phase-content`}>

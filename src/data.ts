@@ -272,6 +272,59 @@ Other than that, the CM011 exam was kinda challenging, since it happened right a
     coverHeight: 675,
     tags: ["week-9", "relaxation", "exams"],
   },
+  {
+    slug: "week-ten",
+    title: "Praying for a Miracle",
+    date: "2026-10-11",
+    excerpt: "The second-to-last exams have finished, but it's not yet over...",
+    content: `## Week Ten: Almost There
+
+I don't know if I can put a lot in this post right now. I'm currently REALLY tired and I have yet to review for the finals; but we'll see where this post leads me, because fortunately I have a LOT of things to say.
+
+This week was quite a challenge. Not only was I preparing for this week's exams, but I also have to prepare for the finals, which is already tomorrow, as of the time I'm writing this post. I wanted to get all of this out of the way, so I can just focus on the materials right after.
+
+Most of the exams were moderately challenging... in a way... Actually, not much. The MATH165 CO3 exam was conducted via Lockdown Browser, which I'm already familiar with, when answering the MPASS exam. I don't know why, but answering the exam in this format felt quite easier, because not only were all of the questions in multiple-choice formats, but that the questions were designed in a way that is challenging enought but also easy enough that it can be answered in Lockdown Browser.
+
+The CM011 C03 exam was not that bad. I breezed through the entire exam in less than an hour. Although I did expect the exam to be quite challenging, since the lessons about Polymers and Electrochemistry were quite dense and complex. We also had our finals exam for CM011L on Friday, which tackled all of the previous lessons and experiments we've conducted throughout the whole term. Most of the multiple choice items were quite confusing, and I did make an educated guess on most of them, but the problem-solving items were alright.
+
+All of that sounded like this week wasn't that bad, right?
+
+Yeah, there was one exam that didn't go too well.
+
+Having read the previous posts, you'd know which one I'm talking about. MATH166. At this point, it has become the bane of my existence, because HOLY COW. MORE THAN HALF OF THE ITEMS IN THIS EXAM WERENT EVEN DISCUSSED IN CLASS, AND OUR INSTRUCTOR HAD TO TEACH US WHAT SHE DIDNT TAUGHT WHILE WE'RE ANSWERING.
+`,
+    coverImage: photo("IMG_8419.jpg"),
+    coverWidth: 1200,
+    coverHeight: 675,
+    tags: ["week-10", "hell", "exams"],
+  },
+  {
+    slug: "week-eleven",
+    title: "The End of the Term",
+    date: "2026-10-14",
+    excerpt: "phew...",
+    content: `## Week Eleven: The Finals
+
+Oh man... It's finally over. 
+
+I don't know why I wrote that down, as if I had already spent more than four years here at Mapúa. Like, dude, it's just the first three months. 
+
+At the time of this post, I'm still quite exhausted from the finals, and this portfolio website is the last thing I have to do before the grades are released. It's just so exhausting having to prepare for last week's exams only to prepare again for the finals less than a week later. Thankfully, I still remembered most of the topics discussed, so I only needed to test my recall; but even then, it was still a challenging period.
+
+The three exams we had were MATH165, MATH166, and CM011. Each of them were quite challenging in their own way. Like always, it's the MATH166 exam that was the most infuriating of all. Not challenging. It's just damn annoying that our instructor didn't teach us the topics that were supposed to be discussed in class. After the CO3 exam, I double-checked the course syllabus and found that half of what she taught wasn't even in the syllabus.
+
+There's not much to do now, other than finish this portfolio website and pray to God that I passed in all of the courses, especially MATH166. I have already finished all of the assignments and stuff way in advance, so the only thing I have to finish is, again, this website.
+
+---
+
+So far, my Mapúan journey has been an insane rollercoaster ride. There were a ton of stressful moments: teachers not discussing the right material, the abundance of assignments to accomplish, the complexity of the lessons, etc. But there were also some fun memories, and I had a really great time helping my classmates whenever they need help reviewing lectures or simply wanting to hang out. There's still many ways to go, but I feel that I have already caught a sense of how the road is going to be like in the future.
+
+`,
+    coverImage: photo("guybreakingchain.jpg"),
+    coverWidth: 1200,
+    coverHeight: 675,
+    tags: ["week-11", "end-of-term", "reflection"],
+  }
 ];
 
 export const CONTACT = {
